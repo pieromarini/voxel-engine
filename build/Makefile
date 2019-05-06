@@ -546,6 +546,33 @@ src/main.cpp.s:
 	$(MAKE) -f CMakeFiles/voxel_engine.dir/build.make CMakeFiles/voxel_engine.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/math/noiseGenerator.o: src/math/noiseGenerator.cpp.o
+
+.PHONY : src/math/noiseGenerator.o
+
+# target to build an object file
+src/math/noiseGenerator.cpp.o:
+	$(MAKE) -f CMakeFiles/voxel_engine.dir/build.make CMakeFiles/voxel_engine.dir/src/math/noiseGenerator.cpp.o
+.PHONY : src/math/noiseGenerator.cpp.o
+
+src/math/noiseGenerator.i: src/math/noiseGenerator.cpp.i
+
+.PHONY : src/math/noiseGenerator.i
+
+# target to preprocess a source file
+src/math/noiseGenerator.cpp.i:
+	$(MAKE) -f CMakeFiles/voxel_engine.dir/build.make CMakeFiles/voxel_engine.dir/src/math/noiseGenerator.cpp.i
+.PHONY : src/math/noiseGenerator.cpp.i
+
+src/math/noiseGenerator.s: src/math/noiseGenerator.cpp.s
+
+.PHONY : src/math/noiseGenerator.s
+
+# target to generate assembly for a file
+src/math/noiseGenerator.cpp.s:
+	$(MAKE) -f CMakeFiles/voxel_engine.dir/build.make CMakeFiles/voxel_engine.dir/src/math/noiseGenerator.cpp.s
+.PHONY : src/math/noiseGenerator.cpp.s
+
 src/ui/debugPane.o: src/ui/debugPane.cpp.o
 
 .PHONY : src/ui/debugPane.o
@@ -897,6 +924,60 @@ src/world/chunk.cpp.s:
 	$(MAKE) -f CMakeFiles/voxel_engine.dir/build.make CMakeFiles/voxel_engine.dir/src/world/chunk.cpp.s
 .PHONY : src/world/chunk.cpp.s
 
+src/world/chunkManager.o: src/world/chunkManager.cpp.o
+
+.PHONY : src/world/chunkManager.o
+
+# target to build an object file
+src/world/chunkManager.cpp.o:
+	$(MAKE) -f CMakeFiles/voxel_engine.dir/build.make CMakeFiles/voxel_engine.dir/src/world/chunkManager.cpp.o
+.PHONY : src/world/chunkManager.cpp.o
+
+src/world/chunkManager.i: src/world/chunkManager.cpp.i
+
+.PHONY : src/world/chunkManager.i
+
+# target to preprocess a source file
+src/world/chunkManager.cpp.i:
+	$(MAKE) -f CMakeFiles/voxel_engine.dir/build.make CMakeFiles/voxel_engine.dir/src/world/chunkManager.cpp.i
+.PHONY : src/world/chunkManager.cpp.i
+
+src/world/chunkManager.s: src/world/chunkManager.cpp.s
+
+.PHONY : src/world/chunkManager.s
+
+# target to generate assembly for a file
+src/world/chunkManager.cpp.s:
+	$(MAKE) -f CMakeFiles/voxel_engine.dir/build.make CMakeFiles/voxel_engine.dir/src/world/chunkManager.cpp.s
+.PHONY : src/world/chunkManager.cpp.s
+
+src/world/worldGen.o: src/world/worldGen.cpp.o
+
+.PHONY : src/world/worldGen.o
+
+# target to build an object file
+src/world/worldGen.cpp.o:
+	$(MAKE) -f CMakeFiles/voxel_engine.dir/build.make CMakeFiles/voxel_engine.dir/src/world/worldGen.cpp.o
+.PHONY : src/world/worldGen.cpp.o
+
+src/world/worldGen.i: src/world/worldGen.cpp.i
+
+.PHONY : src/world/worldGen.i
+
+# target to preprocess a source file
+src/world/worldGen.cpp.i:
+	$(MAKE) -f CMakeFiles/voxel_engine.dir/build.make CMakeFiles/voxel_engine.dir/src/world/worldGen.cpp.i
+.PHONY : src/world/worldGen.cpp.i
+
+src/world/worldGen.s: src/world/worldGen.cpp.s
+
+.PHONY : src/world/worldGen.s
+
+# target to generate assembly for a file
+src/world/worldGen.cpp.s:
+	$(MAKE) -f CMakeFiles/voxel_engine.dir/build.make CMakeFiles/voxel_engine.dir/src/world/worldGen.cpp.s
+.PHONY : src/world/worldGen.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -951,6 +1032,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/math/noiseGenerator.o"
+	@echo "... src/math/noiseGenerator.i"
+	@echo "... src/math/noiseGenerator.s"
 	@echo "... src/ui/debugPane.o"
 	@echo "... src/ui/debugPane.i"
 	@echo "... src/ui/debugPane.s"
@@ -990,6 +1074,12 @@ help:
 	@echo "... src/world/chunk.o"
 	@echo "... src/world/chunk.i"
 	@echo "... src/world/chunk.s"
+	@echo "... src/world/chunkManager.o"
+	@echo "... src/world/chunkManager.i"
+	@echo "... src/world/chunkManager.s"
+	@echo "... src/world/worldGen.o"
+	@echo "... src/world/worldGen.i"
+	@echo "... src/world/worldGen.s"
 .PHONY : help
 
 

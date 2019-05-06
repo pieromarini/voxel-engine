@@ -1,46 +1,76 @@
 #ifndef AABB_H
 #define AABB_H
 
+#include <algorithm>
 #include "../../includes.h"
 
 namespace graphics {
 
-  struct AABB {
 
-	AABB(const glm::vec3& dim) : dimensions(dim) { }
+  class AABB {
+	public:
+	  AABB() : minX(0.0f), minY(0.0f), minZ(0.0f), maxX(0.0f), maxY(0.0f), maxZ(0.0f), surfaceArea(0.0f) { }
 
-	void update(const glm::vec3 &location) {
-	  position = location;
-	}
+	  AABB(unsigned minX, unsigned minY, unsigned minZ, unsigned maxX, unsigned maxY, unsigned maxZ) 
+		: AABB(static_cast<float>(minX), static_cast<float>(minY), static_cast<float>(minZ), static_cast<float>(maxX), static_cast<float>(maxY), static_cast<float>(maxZ)) { }
+	  
+	  AABB(float minX, float minY, float minZ, float maxX, float maxY, float maxZ) 
+		: minX(minX), minY(minY), minZ(minZ), maxX(maxX), maxY(maxY), maxZ(maxZ) {
 
-	glm::vec3 getVN(const glm::vec3 &normal) const {
-	  glm::vec3 res = position;
+		surfaceArea = calculateSurfaceArea();
+	  }
 
-	  if (normal.x < 0)
-		res.x += dimensions.x;
-	  if (normal.y < 0)
-		res.y += dimensions.y;
-	  if (normal.z < 0)
-		res.z += dimensions.z;
+	  bool overlaps(const AABB &other) const {
+		return maxX > other.minX &&
+		  minX < other.maxX &&
+		  maxY > other.minY &&
+		  minY < other.maxY &&
+		  maxZ > other.minZ &&
+		  minZ < other.maxZ;
+	  }
 
-	  return res;
-	}
+	  bool contains(const AABB &other) const {
+		return other.minX >= minX &&
+		  other.maxX <= maxX &&
+		  other.minY >= minY &&
+		  other.maxY <= maxY &&
+		  other.minZ >= minZ &&
+		  other.maxZ <= maxZ;
+	  }
 
-	glm::vec3 getVP(const glm::vec3 &normal) const {
-	  glm::vec3 res = position;
+	  AABB merge(const AABB &other) const {
+		return AABB(
+			std::min(minX, other.minX), std::min(minY, other.minY), std::min(minZ, other.minZ),
+			std::max(maxX, other.maxX), std::max(maxY, other.maxY), std::max(maxZ, other.maxZ)
+			);
+	  }
 
-	  if (normal.x > 0)
-		res.x += dimensions.x;
-	  if (normal.y > 0)
-		res.y += dimensions.y;
-	  if (normal.z > 0)
-		res.z += dimensions.z;
+	  AABB intersection(const AABB &other) const {
+		return AABB(
+			std::max(minX, other.minX), std::max(minY, other.minY), std::max(minZ, other.minZ),
+			std::min(maxX, other.maxX), std::min(maxY, other.maxY), std::min(maxZ, other.maxZ)
+			);
+	  }
 
-	  return res;
-	}
+	  float getWidth() const { return maxX - minX; }
+	  float getHeight() const { return maxY - minY; }
+	  float getDepth() const { return maxZ - minZ; }
 
-	glm::vec3 position;
-	const glm::vec3 dimensions;
+	  float minX;
+	  float minY;
+	  float minZ;
+	  float maxX;
+	  float maxY;
+	  float maxZ;
+	  float surfaceArea;
+
+	private:
+	  float calculateSurfaceArea() const { 
+		return 2.0f * (getWidth() * getHeight() + 
+					   getWidth() * getDepth() + 
+					   getHeight() * getDepth()); 
+	  }
+
   };
 
 }

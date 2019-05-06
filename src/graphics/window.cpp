@@ -260,8 +260,11 @@ namespace graphics {
 	win->s_Buttons[button] = action != GLFW_RELEASE;
 	ImGui_ImplGlfw_MouseButtonCallback(window, button, action, mods);
 
-	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE) {
+	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
 	  Window::s_Buttons[0] = true;
+	}
+	if (Window::s_Buttons[0] == true && button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE) {
+	  Window::s_Buttons[0] = false;
 	}
   }
 

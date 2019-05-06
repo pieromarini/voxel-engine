@@ -4,6 +4,7 @@
 #include <vector>
 #include "../../world/chunk.h"
 
+
 namespace graphics {
 
   class MasterRenderer {
@@ -15,6 +16,7 @@ namespace graphics {
 
 	private:
 	  std::vector<world::Chunk *> chunks;
+
   };
 
 }

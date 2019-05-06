@@ -11,6 +11,7 @@
 #include <array>
 #include <iterator>
 #include <algorithm>
+#include <memory>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>

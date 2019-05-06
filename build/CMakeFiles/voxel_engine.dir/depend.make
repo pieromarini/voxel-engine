@@ -57,6 +57,7 @@ CMakeFiles/voxel_engine.dir/src/graphics/render/masterRenderer.cpp.o: ../src/gra
 CMakeFiles/voxel_engine.dir/src/graphics/render/masterRenderer.cpp.o: ../src/includes.h
 CMakeFiles/voxel_engine.dir/src/graphics/render/masterRenderer.cpp.o: ../src/utils/logger.h
 CMakeFiles/voxel_engine.dir/src/graphics/render/masterRenderer.cpp.o: ../src/utils/singleton.h
+CMakeFiles/voxel_engine.dir/src/graphics/render/masterRenderer.cpp.o: ../src/world/block/block.h
 CMakeFiles/voxel_engine.dir/src/graphics/render/masterRenderer.cpp.o: ../src/world/chunk.h
 
 CMakeFiles/voxel_engine.dir/src/graphics/render/mesh.cpp.o: ../src/graphics/render/mesh.cpp
@@ -100,7 +101,6 @@ CMakeFiles/voxel_engine.dir/src/includes.cpp.o: ../src/utils/singleton.h
 CMakeFiles/voxel_engine.dir/src/main.cpp.o: ../lib/glfw/include/GLFW/glfw3.h
 CMakeFiles/voxel_engine.dir/src/main.cpp.o: ../src/graphics/camera.h
 CMakeFiles/voxel_engine.dir/src/main.cpp.o: ../src/graphics/interactions/raycast.h
-CMakeFiles/voxel_engine.dir/src/main.cpp.o: ../src/graphics/render/masterRenderer.h
 CMakeFiles/voxel_engine.dir/src/main.cpp.o: ../src/graphics/render/mesh.h
 CMakeFiles/voxel_engine.dir/src/main.cpp.o: ../src/graphics/shader.h
 CMakeFiles/voxel_engine.dir/src/main.cpp.o: ../src/graphics/texture/cubemap.h
@@ -119,7 +119,12 @@ CMakeFiles/voxel_engine.dir/src/main.cpp.o: ../src/utils/timer.h
 CMakeFiles/voxel_engine.dir/src/main.cpp.o: ../src/vendor/imgui/imconfig.h
 CMakeFiles/voxel_engine.dir/src/main.cpp.o: ../src/vendor/imgui/imgui.h
 CMakeFiles/voxel_engine.dir/src/main.cpp.o: ../src/vendor/imgui/imgui_impl_glfw_gl3.h
+CMakeFiles/voxel_engine.dir/src/main.cpp.o: ../src/world/block/block.h
 CMakeFiles/voxel_engine.dir/src/main.cpp.o: ../src/world/chunk.h
+CMakeFiles/voxel_engine.dir/src/main.cpp.o: ../src/world/chunkManager.h
+
+CMakeFiles/voxel_engine.dir/src/math/noiseGenerator.cpp.o: ../src/math/noiseGenerator.cpp
+CMakeFiles/voxel_engine.dir/src/math/noiseGenerator.cpp.o: ../src/math/noiseGenerator.h
 
 CMakeFiles/voxel_engine.dir/src/ui/debugPane.cpp.o: ../src/ui/debugPane.cpp
 CMakeFiles/voxel_engine.dir/src/ui/debugPane.cpp.o: ../src/ui/debugPane.h
@@ -199,9 +204,39 @@ CMakeFiles/voxel_engine.dir/src/world/chunk.cpp.o: ../lib/glfw/include/GLFW/glfw
 CMakeFiles/voxel_engine.dir/src/world/chunk.cpp.o: ../src/graphics/render/mesh.h
 CMakeFiles/voxel_engine.dir/src/world/chunk.cpp.o: ../src/graphics/shader.h
 CMakeFiles/voxel_engine.dir/src/world/chunk.cpp.o: ../src/includes.h
+CMakeFiles/voxel_engine.dir/src/world/chunk.cpp.o: ../src/math/noiseGenerator.h
 CMakeFiles/voxel_engine.dir/src/world/chunk.cpp.o: ../src/utils/logger.h
 CMakeFiles/voxel_engine.dir/src/world/chunk.cpp.o: ../src/utils/singleton.h
 CMakeFiles/voxel_engine.dir/src/world/chunk.cpp.o: ../src/utils/timer.h
+CMakeFiles/voxel_engine.dir/src/world/chunk.cpp.o: ../src/world/block/block.h
 CMakeFiles/voxel_engine.dir/src/world/chunk.cpp.o: ../src/world/chunk.cpp
 CMakeFiles/voxel_engine.dir/src/world/chunk.cpp.o: ../src/world/chunk.h
+
+CMakeFiles/voxel_engine.dir/src/world/chunkManager.cpp.o: ../lib/glfw/include/GLFW/glfw3.h
+CMakeFiles/voxel_engine.dir/src/world/chunkManager.cpp.o: ../src/graphics/camera.h
+CMakeFiles/voxel_engine.dir/src/world/chunkManager.cpp.o: ../src/graphics/interactions/raycast.h
+CMakeFiles/voxel_engine.dir/src/world/chunkManager.cpp.o: ../src/graphics/render/mesh.h
+CMakeFiles/voxel_engine.dir/src/world/chunkManager.cpp.o: ../src/graphics/shader.h
+CMakeFiles/voxel_engine.dir/src/world/chunkManager.cpp.o: ../src/graphics/window.h
+CMakeFiles/voxel_engine.dir/src/world/chunkManager.cpp.o: ../src/includes.h
+CMakeFiles/voxel_engine.dir/src/world/chunkManager.cpp.o: ../src/utils/logger.h
+CMakeFiles/voxel_engine.dir/src/world/chunkManager.cpp.o: ../src/utils/singleton.h
+CMakeFiles/voxel_engine.dir/src/world/chunkManager.cpp.o: ../src/vendor/imgui/imconfig.h
+CMakeFiles/voxel_engine.dir/src/world/chunkManager.cpp.o: ../src/vendor/imgui/imgui.h
+CMakeFiles/voxel_engine.dir/src/world/chunkManager.cpp.o: ../src/vendor/imgui/imgui_impl_glfw_gl3.h
+CMakeFiles/voxel_engine.dir/src/world/chunkManager.cpp.o: ../src/world/block/block.h
+CMakeFiles/voxel_engine.dir/src/world/chunkManager.cpp.o: ../src/world/chunk.h
+CMakeFiles/voxel_engine.dir/src/world/chunkManager.cpp.o: ../src/world/chunkManager.cpp
+CMakeFiles/voxel_engine.dir/src/world/chunkManager.cpp.o: ../src/world/chunkManager.h
+
+CMakeFiles/voxel_engine.dir/src/world/worldGen.cpp.o: ../lib/glfw/include/GLFW/glfw3.h
+CMakeFiles/voxel_engine.dir/src/world/worldGen.cpp.o: ../src/graphics/render/mesh.h
+CMakeFiles/voxel_engine.dir/src/world/worldGen.cpp.o: ../src/graphics/shader.h
+CMakeFiles/voxel_engine.dir/src/world/worldGen.cpp.o: ../src/includes.h
+CMakeFiles/voxel_engine.dir/src/world/worldGen.cpp.o: ../src/utils/logger.h
+CMakeFiles/voxel_engine.dir/src/world/worldGen.cpp.o: ../src/utils/singleton.h
+CMakeFiles/voxel_engine.dir/src/world/worldGen.cpp.o: ../src/world/block/block.h
+CMakeFiles/voxel_engine.dir/src/world/worldGen.cpp.o: ../src/world/chunk.h
+CMakeFiles/voxel_engine.dir/src/world/worldGen.cpp.o: ../src/world/worldGen.cpp
+CMakeFiles/voxel_engine.dir/src/world/worldGen.cpp.o: ../src/world/worldGen.h
 

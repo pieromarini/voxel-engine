@@ -56,7 +56,6 @@ namespace graphics {
 	  m_MovementSpeed = SPEED / 4.0f;
 	else if(Window::isMouseButtonPressed(0)) { // NOTE: Tmp raycasting test
 	  auto ray = graphics::Raycast(Window::getMouseX(), Window::getMouseY(), Window::getWidth(), Window::getHeight(), getProjectionMatrix(), getViewMatrix());
-	  std::cout << ray.didHit() << '\n';
 	} else
 	  m_MovementSpeed = SPEED;
 

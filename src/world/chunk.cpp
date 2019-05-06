@@ -1,14 +1,43 @@
 #include "chunk.h"
 #include <GL/glew.h>
 #include "../utils/timer.h"
+#include "../math/noiseGenerator.h"
 
 namespace world {
 
   Chunk::Chunk(glm::vec3 position) : position(position) {
-
+	initChunkBlocks();
+	setupLandscape();
 	buildMesh();
+	setupBuffers();
+  }
 
-	// buffers
+  Chunk::~Chunk() { 
+	destroyChunkBlocks(); 
+  }
+
+  void Chunk::initChunkBlocks() {
+	blocks = new Block**[CHUNK_SIZE];
+
+	for(int i = 0; i < CHUNK_SIZE; ++i) {
+	  blocks[i] = new Block*[CHUNK_SIZE];
+
+	  for(int j = 0; j < CHUNK_SIZE; ++j)
+		blocks[i][j] = new Block[CHUNK_SIZE];
+	}
+  }
+
+  void Chunk::destroyChunkBlocks() {
+	for (int i = 0; i < CHUNK_SIZE; ++i) {
+	  for (int j = 0; j < CHUNK_SIZE; ++j) {
+		delete [] blocks[i][j];
+	  }
+	  delete [] blocks[i];
+	}
+	delete [] blocks;
+  }
+
+  void Chunk::setupBuffers() {
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
 
@@ -20,57 +49,27 @@ namespace world {
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-
   }
 
-  Chunk::~Chunk() { }
-
   void Chunk::buildMesh() {
+	// utils::Timer t{};
 
-	for (int x = 0; x < CHUNK_SIZE; ++x) {
-	  for (int y = 0; y < CHUNK_SIZE; ++y) {
-		for (int z = 0; z < CHUNK_SIZE; ++z) {
-		  blocks[x][y][z] = true;
-		}
-	  }
-	}
-
-
-	// TODO: Optimize chunk-based rendered faces.
+	// TODO: Optimize chunk-based built faces.
+	// TODO: Add vertex count and bind to ImGUI debug panel.
 	graphics::Mesh chunkMesh{};
 	for (int x = 0; x < CHUNK_SIZE; ++x) {
 	  for (int y = 0; y < CHUNK_SIZE; ++y) {
 		for (int z = 0; z < CHUNK_SIZE; ++z) {
 
-		  if (x > 0 && blocks[x-1][y][z] == true) {
-			// add face back
-			chunkMesh.update(getMeshFace(graphics::BlockFace::Back), x-1, y, z);
-		  }
+		  // Dont render inactive blocks.
+		  if (!blocks[x][y][z].isActive()) continue;
 
-		  if (y > 0 && blocks[x][y-1][z] == true) {
-			// add face bottom
-			chunkMesh.update(getMeshFace(graphics::BlockFace::Bottom), x, y-1, z);
-		  }
-
-		  if (z > 0 && blocks[x][y][z-1] == true) {
-			// add face left
-			chunkMesh.update(getMeshFace(graphics::BlockFace::Left), x, y, z-1);
-		  }
-
-		  if (x + 1 < CHUNK_SIZE && blocks[x+1][y][z] == true) {
-			// add face front
-			chunkMesh.update(getMeshFace(graphics::BlockFace::Front), x+1, y, z);
-		  }
-
-		  if (y + 1 < CHUNK_SIZE && blocks[x][y+1][z] == true) {
-			// add face top
-			chunkMesh.update(getMeshFace(graphics::BlockFace::Top), x, y+1, z);
-		  }
-
-		  if (z + 1 < CHUNK_SIZE && blocks[x][y][z+1] == true) {
-			// add face right
-			chunkMesh.update(getMeshFace(graphics::BlockFace::Right), x, y, z+1);
-		  }
+		  chunkMesh.update(getMeshFace(graphics::BlockFace::Back), x, y, z);
+		  chunkMesh.update(getMeshFace(graphics::BlockFace::Bottom), x, y, z);
+		  chunkMesh.update(getMeshFace(graphics::BlockFace::Left), x, y, z);
+		  chunkMesh.update(getMeshFace(graphics::BlockFace::Front), x, y, z);
+		  chunkMesh.update(getMeshFace(graphics::BlockFace::Top), x, y, z);
+		  chunkMesh.update(getMeshFace(graphics::BlockFace::Right), x, y, z);
 		}
 	  }
 	}
@@ -88,6 +87,25 @@ namespace world {
 	  vertices.push_back(chunkMesh.texCoords[j + 1]);
 	}
 
+	// t.logTimer("Chunk Build: ");
+  }
+
+  void Chunk::setupLandscape() {
+
+	math::NoiseParameters params {7, CHUNK_SIZE, 2000, 0, 0.53};
+	// Randomize seed
+	math::NoiseGenerator noise{21212};
+	noise.setParameters(params);
+
+	for(int x = 0; x < CHUNK_SIZE; ++x) {
+	  for(int z = 0; z < CHUNK_SIZE; ++z) {
+		double height = noise.getHeight(x, z, position.x, position.z);
+
+		for (int y = 0; y < height && y < CHUNK_SIZE; ++y) {
+		  blocks[x][y][z].setActive(true);
+		}
+	  }
+	}
   }
 
   void Chunk::render(graphics::Shader &shader) {
@@ -102,7 +120,6 @@ namespace world {
 	// t.logTimer("Chunk Render: ");
   }
 
-  // TODO: Fix Vertex Winding
   graphics::Mesh Chunk::getMeshFace(graphics::BlockFace face) {
 	if (face == graphics::BlockFace::Top)
 	  return graphics::Mesh {

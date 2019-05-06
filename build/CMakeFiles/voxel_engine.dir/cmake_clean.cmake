@@ -12,6 +12,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/voxel_engine.dir/src/graphics/window.cpp.o"
   "CMakeFiles/voxel_engine.dir/src/includes.cpp.o"
   "CMakeFiles/voxel_engine.dir/src/main.cpp.o"
+  "CMakeFiles/voxel_engine.dir/src/math/noiseGenerator.cpp.o"
   "CMakeFiles/voxel_engine.dir/src/ui/debugPane.cpp.o"
   "CMakeFiles/voxel_engine.dir/src/ui/pane.cpp.o"
   "CMakeFiles/voxel_engine.dir/src/ui/runtimePane.cpp.o"
@@ -25,6 +26,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/voxel_engine.dir/src/vendor/imgui/imgui_draw.cpp.o"
   "CMakeFiles/voxel_engine.dir/src/vendor/imgui/imgui_impl_glfw_gl3.cpp.o"
   "CMakeFiles/voxel_engine.dir/src/world/chunk.cpp.o"
+  "CMakeFiles/voxel_engine.dir/src/world/chunkManager.cpp.o"
+  "CMakeFiles/voxel_engine.dir/src/world/worldGen.cpp.o"
   "voxel_engine.pdb"
   "voxel_engine"
 )

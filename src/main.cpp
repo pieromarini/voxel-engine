@@ -11,7 +11,7 @@
 #include "ui/runtimePane.h"
 #include "ui/debugPane.h"
 
-#include "graphics/render/masterRenderer.h"
+#include "world/chunkManager.h"
 #include "world/chunk.h"
 
 #include "utils/timer.h"
@@ -26,18 +26,45 @@ int main() {
   graphics::Shader shaderCube("cube_vertex.glsl", "cube_fragment.glsl");
   graphics::Texture *tex = utils::TextureLoader::load2DTexture("resources/textures/stone.png", false);
 
+  world::ChunkManager chunkManager{shaderCube};
 
   ui::RuntimePane runtimePane(glm::vec2(256.0f, 80.0f));
   ui::DebugPane debugPane(glm::vec2(256.0f, 145.0f));
 
   utils::Time deltaTime;
 
-  graphics::MasterRenderer renderer{};
-  renderer.addChunk(new world::Chunk(glm::vec3(0.0f, 0.0f, 0.0f)));
-  renderer.addChunk(new world::Chunk(glm::vec3(16.0f, 0.0f, 0.0f)));
-  renderer.addChunk(new world::Chunk(glm::vec3(0.0f, 0.0f, 16.0f)));
-  renderer.addChunk(new world::Chunk(glm::vec3(-16.0f, 0.0f, 0.0f)));
-  renderer.addChunk(new world::Chunk(glm::vec3(0.0f, 0.0f, -16.0f)));
+  chunkManager.addChunk(new world::Chunk(glm::vec3(0.0f, 0.0f, 0.0f)));
+
+  chunkManager.addChunk(new world::Chunk(glm::vec3(16.0f, 0.0f, 0.0f)));
+  chunkManager.addChunk(new world::Chunk(glm::vec3(0.0f, 0.0f, 16.0f)));
+  chunkManager.addChunk(new world::Chunk(glm::vec3(-16.0f, 0.0f, 0.0f)));
+  chunkManager.addChunk(new world::Chunk(glm::vec3(0.0f, 0.0f, -16.0f)));
+
+  chunkManager.addChunk(new world::Chunk(glm::vec3(16.0f, 0.0f, 16.0f)));
+  chunkManager.addChunk(new world::Chunk(glm::vec3(16.0f, 0.0f, -16.0f)));
+  chunkManager.addChunk(new world::Chunk(glm::vec3(-16.0f, 0.0f, 16.0f)));
+  chunkManager.addChunk(new world::Chunk(glm::vec3(-16.0f, 0.0f, -16.0f)));
+
+  chunkManager.addChunk(new world::Chunk(glm::vec3(32.0f, 0.0f, 0.0f)));
+  chunkManager.addChunk(new world::Chunk(glm::vec3(0.0f, 0.0f, 32.0f)));
+  chunkManager.addChunk(new world::Chunk(glm::vec3(-32.0f, 0.0f, 0.0f)));
+  chunkManager.addChunk(new world::Chunk(glm::vec3(0.0f, 0.0f, -32.0f)));
+
+  chunkManager.addChunk(new world::Chunk(glm::vec3(32.0f, 0.0f, 32.0f)));
+  chunkManager.addChunk(new world::Chunk(glm::vec3(32.0f, 0.0f, -32.0f)));
+  chunkManager.addChunk(new world::Chunk(glm::vec3(-32.0f, 0.0f, 32.0f)));
+  chunkManager.addChunk(new world::Chunk(glm::vec3(-32.0f, 0.0f, -32.0f)));
+
+  chunkManager.addChunk(new world::Chunk(glm::vec3(16.0f, 0.0f, 32.0f)));
+  chunkManager.addChunk(new world::Chunk(glm::vec3(16.0f, 0.0f, -32.0f)));
+  chunkManager.addChunk(new world::Chunk(glm::vec3(-16.0f, 0.0f, 32.0f)));
+  chunkManager.addChunk(new world::Chunk(glm::vec3(-16.0f, 0.0f, -32.0f)));
+
+  chunkManager.addChunk(new world::Chunk(glm::vec3(32.0f, 0.0f, 16.0f)));
+  chunkManager.addChunk(new world::Chunk(glm::vec3(32.0f, 0.0f, -16.0f)));
+  chunkManager.addChunk(new world::Chunk(glm::vec3(-32.0f, 0.0f, 16.0f)));
+  chunkManager.addChunk(new world::Chunk(glm::vec3(-32.0f, 0.0f, -16.0f)));
+
 
   while(!window.closed()) {
 
@@ -61,7 +88,7 @@ int main() {
 	shaderCube.setUniformMat4("projection", camera.getProjectionMatrix());
 
 	tex->bind();
-	renderer.renderChunks(shaderCube);
+	chunkManager.update(deltaTime.getDeltaTime());
 
 	debugPane.render();
 	runtimePane.render();

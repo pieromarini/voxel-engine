@@ -3,6 +3,7 @@
 
 #include "../graphics/shader.h"
 #include "../graphics/render/mesh.h"
+#include "block/block.h"
 
 
 namespace world {
@@ -19,17 +20,19 @@ namespace world {
 	  static const int CHUNK_SIZE = 16;
 
 	private:
-	  bool blocks[CHUNK_SIZE][CHUNK_SIZE][CHUNK_SIZE];
+	  Block ***blocks;
 	  unsigned int VAO, VBO, EBO;
 	  glm::vec3 position;
 	  int triangleCount;
 	  std::vector<float> vertices;
 
 	  void buildMesh();
+	  void setupLandscape();
+	  void setupBuffers();
+	  void initChunkBlocks();
+	  void destroyChunkBlocks();
 
   };
-
-
 
 }
 
