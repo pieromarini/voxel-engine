@@ -15,18 +15,24 @@ namespace world {
 
 	  void update(float deltaTime);
 	  void render(graphics::Shader &shader);
-	  graphics::Mesh getMeshFace(graphics::BlockFace face);
+	  void buildMesh();
+
+	  inline glm::vec3 getPosition() { return position; }
+	  inline graphics::Mesh getMesh() { return chunkMesh; }
 
 	  static const int CHUNK_SIZE = 16;
 
 	private:
 	  Block ***blocks;
-	  unsigned int VAO, VBO, EBO;
-	  glm::vec3 position;
-	  int triangleCount;
-	  std::vector<float> vertices;
 
-	  void buildMesh();
+	  unsigned int VAO, VBO, EBO;
+	  std::vector<float> vertices;
+	  std::vector<unsigned int> indices;
+
+	  glm::vec3 position;
+	  graphics::Mesh chunkMesh;
+
+	  graphics::Mesh getMeshFace(graphics::BlockFace face);
 	  void setupLandscape();
 	  void setupBuffers();
 	  void initChunkBlocks();

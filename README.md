@@ -1,3 +1,7 @@
 # Voxel Engine
 
-### TODO
+## Compiling
+`make`
+
+## Running
+`./run`

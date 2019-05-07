@@ -221,6 +221,7 @@ CMakeFiles/voxel_engine.dir/src/world/chunkManager.cpp.o: ../src/graphics/window
 CMakeFiles/voxel_engine.dir/src/world/chunkManager.cpp.o: ../src/includes.h
 CMakeFiles/voxel_engine.dir/src/world/chunkManager.cpp.o: ../src/utils/logger.h
 CMakeFiles/voxel_engine.dir/src/world/chunkManager.cpp.o: ../src/utils/singleton.h
+CMakeFiles/voxel_engine.dir/src/world/chunkManager.cpp.o: ../src/utils/timer.h
 CMakeFiles/voxel_engine.dir/src/world/chunkManager.cpp.o: ../src/vendor/imgui/imconfig.h
 CMakeFiles/voxel_engine.dir/src/world/chunkManager.cpp.o: ../src/vendor/imgui/imgui.h
 CMakeFiles/voxel_engine.dir/src/world/chunkManager.cpp.o: ../src/vendor/imgui/imgui_impl_glfw_gl3.h

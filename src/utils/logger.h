@@ -11,7 +11,7 @@ namespace utils {
 	private:
 	  Logger();
 	public:
-	  static Logger& getInstance();
+	  static Logger &getInstance();
 
 	  void debug(std::string &module, const std::string &message);
 
@@ -28,7 +28,6 @@ namespace utils {
 		DEBUG, INFO, WARNING, ERROR
 	  };
 
-	  std::vector<std::string> filePaths;
   };
 
 }

@@ -222,6 +222,7 @@ CMakeFiles/voxel_engine.dir/src/world/chunkManager.cpp.o
  /home/piero/Development/Cpp/voxel_engine/src/includes.h
  /home/piero/Development/Cpp/voxel_engine/src/utils/logger.h
  /home/piero/Development/Cpp/voxel_engine/src/utils/singleton.h
+ /home/piero/Development/Cpp/voxel_engine/src/utils/timer.h
  /home/piero/Development/Cpp/voxel_engine/src/vendor/imgui/imconfig.h
  /home/piero/Development/Cpp/voxel_engine/src/vendor/imgui/imgui.h
  /home/piero/Development/Cpp/voxel_engine/src/vendor/imgui/imgui_impl_glfw_gl3.h

@@ -65,6 +65,12 @@ int main() {
   chunkManager.addChunk(new world::Chunk(glm::vec3(-32.0f, 0.0f, 16.0f)));
   chunkManager.addChunk(new world::Chunk(glm::vec3(-32.0f, 0.0f, -16.0f)));
 
+  chunkManager.buildChunkMeshes();
+
+  // Lightning
+  shaderCube.enable();
+  shaderCube.setUniform3f("lightPos", glm::vec3(10.0f, 28.0f, 7.5f));
+  shaderCube.setUniform3f("lightColor", glm::vec3(1.0, 1.0, 1.0));
 
   while(!window.closed()) {
 
@@ -79,13 +85,13 @@ int main() {
 
 	ImGui_ImplGlfwGL3_NewFrame();
 
-	shaderCube.enable();
-
 	camera.processInput(deltaTime.getDeltaTime());
 
-	// MVP Matrices
+	// VP Matrices. Model Matrix should be set by each renderer.
 	shaderCube.setUniformMat4("view", camera.getViewMatrix());
 	shaderCube.setUniformMat4("projection", camera.getProjectionMatrix());
+
+	shaderCube.setUniform3f("viewPos", camera.getPosition());
 
 	tex->bind();
 	chunkManager.update(deltaTime.getDeltaTime());

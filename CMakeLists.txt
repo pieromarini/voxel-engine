@@ -28,7 +28,7 @@ file(GLOB_RECURSE SRCS
 
 add_executable(${PROJECT_NAME} ${HDRS} ${SRCS})
 
-# Use Modern OpenGL 3.0
+# Use Modern OpenGL
 set(OpenGL_GL_PREFERENCE "GLVND")
 
 include(FindPkgConfig)
@@ -44,7 +44,6 @@ find_package(OpenGL REQUIRED)
 if(NOT OPENGL_FOUND)
 	message(FATAL_ERROR "OpenGL not found!")
 endif(NOT OPENGL_FOUND)
-
 
 find_package(GLEW REQUIRED)
 if(NOT GLEW_FOUND)

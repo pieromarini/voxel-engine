@@ -27,7 +27,7 @@ namespace utils {
   }
 
   void Logger::logMessage(const int &priority, const std::string &module, const std::string &message) {
-	std::cout << module.c_str() << " : " << message.c_str() << std::endl;
+	std::cout << module.c_str() << " -> " << message.c_str() << std::endl;
   }
 
 }

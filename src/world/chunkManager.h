@@ -7,7 +7,7 @@
 #include "../graphics/shader.h"
 
 /*
- * TODO
+ * TODO:
  * 1) Check if Chunks need to be loaded
  * 2) Configure loaded Chunks
  * 3) Check if Chunks need to be rebuilt
@@ -22,8 +22,9 @@ namespace world {
 	public:
 	  ChunkManager(graphics::Shader &shader);
 	  void update(float deltaTime);
-	  void loadChunksFromFile();
+	  void buildChunkMeshes();
 	  void addChunk(Chunk *chunk);
+	  void loadChunksFromFile();
 
 	private:
 	  glm::vec3 cameraPos;
