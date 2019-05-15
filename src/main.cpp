@@ -4,73 +4,35 @@
 
 #include "graphics/shader.h"
 #include "graphics/camera.h"
+#include "graphics/texture/texture.h"
 
 #include "utils/loaders/textureLoader.h"
 #include "utils/time.h"
+#include "utils/timer.h"
 
 #include "ui/runtimePane.h"
 #include "ui/debugPane.h"
 
-#include "world/chunkManager.h"
-#include "world/chunk.h"
+#include "entities/entity.h"
+#include "world/world.h"
+#include "renderers/masterRenderer.h"
 
-#include "utils/timer.h"
-#include "utils/loaders/textureLoader.h"
-#include "graphics/texture/texture.h"
 
 int main() {
 
   graphics::Window window("Engine", 1366, 768);
-  graphics::Camera camera(glm::vec3(8.0f, 18.0f, 8.0f));
-
-  graphics::Shader shaderCube("cube_vertex.glsl", "cube_fragment.glsl");
-  graphics::Texture *tex = utils::TextureLoader::load2DTexture("resources/textures/stone.png", false);
-
-  world::ChunkManager chunkManager{shaderCube};
+  graphics::Camera camera(glm::vec3(0.0f, 80.0f, 0.0f));
 
   ui::RuntimePane runtimePane(glm::vec2(256.0f, 80.0f));
   ui::DebugPane debugPane(glm::vec2(256.0f, 145.0f));
 
   utils::Time deltaTime;
 
-  chunkManager.addChunk(new world::Chunk(glm::vec3(0.0f, 0.0f, 0.0f)));
+  Entity player{};
+  camera.attachToEntity(player);
 
-  chunkManager.addChunk(new world::Chunk(glm::vec3(16.0f, 0.0f, 0.0f)));
-  chunkManager.addChunk(new world::Chunk(glm::vec3(0.0f, 0.0f, 16.0f)));
-  chunkManager.addChunk(new world::Chunk(glm::vec3(-16.0f, 0.0f, 0.0f)));
-  chunkManager.addChunk(new world::Chunk(glm::vec3(0.0f, 0.0f, -16.0f)));
-
-  chunkManager.addChunk(new world::Chunk(glm::vec3(16.0f, 0.0f, 16.0f)));
-  chunkManager.addChunk(new world::Chunk(glm::vec3(16.0f, 0.0f, -16.0f)));
-  chunkManager.addChunk(new world::Chunk(glm::vec3(-16.0f, 0.0f, 16.0f)));
-  chunkManager.addChunk(new world::Chunk(glm::vec3(-16.0f, 0.0f, -16.0f)));
-
-  chunkManager.addChunk(new world::Chunk(glm::vec3(32.0f, 0.0f, 0.0f)));
-  chunkManager.addChunk(new world::Chunk(glm::vec3(0.0f, 0.0f, 32.0f)));
-  chunkManager.addChunk(new world::Chunk(glm::vec3(-32.0f, 0.0f, 0.0f)));
-  chunkManager.addChunk(new world::Chunk(glm::vec3(0.0f, 0.0f, -32.0f)));
-
-  chunkManager.addChunk(new world::Chunk(glm::vec3(32.0f, 0.0f, 32.0f)));
-  chunkManager.addChunk(new world::Chunk(glm::vec3(32.0f, 0.0f, -32.0f)));
-  chunkManager.addChunk(new world::Chunk(glm::vec3(-32.0f, 0.0f, 32.0f)));
-  chunkManager.addChunk(new world::Chunk(glm::vec3(-32.0f, 0.0f, -32.0f)));
-
-  chunkManager.addChunk(new world::Chunk(glm::vec3(16.0f, 0.0f, 32.0f)));
-  chunkManager.addChunk(new world::Chunk(glm::vec3(16.0f, 0.0f, -32.0f)));
-  chunkManager.addChunk(new world::Chunk(glm::vec3(-16.0f, 0.0f, 32.0f)));
-  chunkManager.addChunk(new world::Chunk(glm::vec3(-16.0f, 0.0f, -32.0f)));
-
-  chunkManager.addChunk(new world::Chunk(glm::vec3(32.0f, 0.0f, 16.0f)));
-  chunkManager.addChunk(new world::Chunk(glm::vec3(32.0f, 0.0f, -16.0f)));
-  chunkManager.addChunk(new world::Chunk(glm::vec3(-32.0f, 0.0f, 16.0f)));
-  chunkManager.addChunk(new world::Chunk(glm::vec3(-32.0f, 0.0f, -16.0f)));
-
-  chunkManager.buildChunkMeshes();
-
-  // Lightning
-  shaderCube.enable();
-  shaderCube.setUniform3f("lightPos", glm::vec3(10.0f, 28.0f, 7.5f));
-  shaderCube.setUniform3f("lightColor", glm::vec3(1.0, 1.0, 1.0));
+  World world{};
+  MasterRenderer renderer{};
 
   while(!window.closed()) {
 
@@ -87,15 +49,15 @@ int main() {
 
 	camera.processInput(deltaTime.getDeltaTime());
 
-	// VP Matrices. Model Matrix should be set by each renderer.
-	shaderCube.setUniformMat4("view", camera.getViewMatrix());
-	shaderCube.setUniformMat4("projection", camera.getProjectionMatrix());
+    /*
+	renderer.drawCube({0, 0, 0});
+    renderer.drawCube({0, 2, 0});
+	*/
 
-	shaderCube.setUniform3f("viewPos", camera.getPosition());
+	world.renderWorld(renderer);
+	renderer.finishRender(window, camera);
 
-	tex->bind();
-	chunkManager.update(deltaTime.getDeltaTime());
-
+	// TODO: All the gui rendering should be done inside the "masterRenderer" through an abstraction probably.
 	debugPane.render();
 	runtimePane.render();
 

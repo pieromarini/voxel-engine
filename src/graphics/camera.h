@@ -2,6 +2,7 @@
 
 #include "../includes.h"
 #include "window.h"
+#include "../entities/entity.h"
 
 namespace graphics {
 
@@ -26,10 +27,14 @@ namespace graphics {
 	  Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = YAW, float pitch = PITCH);
 	  Camera(float xPos, float yPos, float zPos, float xUp, float yUp, float zUp, float yaw, float pitch);
 
-	  glm::mat4 getViewMatrix();
-	  glm::mat4 getProjectionMatrix();
+	  // Matrices
+	  glm::mat4 getViewMatrix() const;
+	  glm::mat4 getProjectionMatrix() const;
+	  glm::mat4 makeModelMatrix(const Entity &entity) const;
 
 	  void processInput(float deltaTime);
+
+	  void attachToEntity(const Entity &entity);
 
 	  // Getters
 	  inline float getYaw() const { return m_Yaw; }
@@ -51,6 +56,9 @@ namespace graphics {
 	  float m_MovementSpeed;
 	  float m_MouseSensitivity;
 	  float m_FOV;
+
+	  // Hooked entity
+	  const Entity *m_Entity;
 
 	  void updateCameraVectors();
 	  void processKeyboard(Camera_Movement direction, float deltaTime);

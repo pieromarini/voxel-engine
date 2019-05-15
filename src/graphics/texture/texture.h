@@ -8,14 +8,14 @@
 namespace graphics {
 
   struct TextureSettings {
-	GLenum TextureWrapSMode = GL_REPEAT;
-	GLenum TextureWrapTMode = GL_REPEAT;
+	GLenum TextureWrapSMode = GL_CLAMP_TO_EDGE;
+	GLenum TextureWrapTMode = GL_CLAMP_TO_EDGE;
 
-	GLenum TextureMinificationFilterMode = GL_LINEAR_MIPMAP_LINEAR;
-	GLenum TextureMagnificationFilterMode = GL_LINEAR;
+	GLenum TextureMinificationFilterMode = GL_NEAREST;
+	GLenum TextureMagnificationFilterMode = GL_NEAREST;
 	float TextureAnisotropyLevel = 8.0f;
 
-	bool HasMips = true;
+	bool HasMips = false;
 	int MipBias = 0;
   };
 
@@ -38,6 +38,8 @@ namespace graphics {
 
 	  void setMipMode(bool shouldGenMips, int mipBias);
 	  inline void setTextureSettings(TextureSettings settings) { m_TextureSettings = settings; }
+	  unsigned int getWidth() const { return m_Width; }
+	  unsigned int getHeight() const { return m_Height; }
 
 	  inline unsigned int getTextureId() { return m_TextureId; }
 	private:

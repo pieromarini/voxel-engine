@@ -11,7 +11,7 @@ namespace utils {
 	private:
 	  Logger();
 	public:
-	  static Logger &getInstance();
+	  static Logger& getInstance();
 
 	  void debug(std::string &module, const std::string &message);
 
@@ -22,11 +22,7 @@ namespace utils {
 	  void error(const std::string &module, const std::string &message);
 
 	private:
-	  void logMessage(const int &priority, const std::string &module, const std::string &message);
-
-	  enum {
-		DEBUG, INFO, WARNING, ERROR
-	  };
+	  void logMessage(const std::string &priority, const std::string &module, const std::string &message);
 
   };
 

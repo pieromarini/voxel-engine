@@ -6,6 +6,7 @@ namespace graphics {
 
   class Shader {
 	public:
+	  Shader() = default;
 	  Shader(const char *vertPath, const char *fragPath);
 	  Shader(const char *vertPath, const char *fragPath, const char *geoPath);
 	  ~Shader();

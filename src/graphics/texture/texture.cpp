@@ -16,7 +16,9 @@ namespace graphics {
 	m_TextureFormat = textureFormat;
 
 	glGenTextures(1, &m_TextureId);
-	bind();
+
+    glBindTexture(GL_TEXTURE_2D, m_TextureId);
+
 	glTexImage2D(GL_TEXTURE_2D, 0, textureFormat, width, height, 0, dataFormat, GL_UNSIGNED_BYTE, data);
 
 	// Texture wrapping
@@ -35,17 +37,22 @@ namespace graphics {
 
 	// Anisotropic filtering
 	// NOTE: Should be moved somewhere else so it's not calculated every time.
+	/*
 	float maxAnisotropy;
 	glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &maxAnisotropy);
 	float anistropyAmount = glm::min(maxAnisotropy, m_TextureSettings.TextureAnisotropyLevel);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, anistropyAmount);
+	*/
 
 	unbind();
   }
 
+  // NOTE: Always using texture 0
   void Texture::bind(int unit) {
+	/*
 	if (unit >= 0)
 	  glActiveTexture(GL_TEXTURE0 + unit);
+	*/
 	glBindTexture(m_TextureTarget, m_TextureId);
   }
 

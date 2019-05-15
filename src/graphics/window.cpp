@@ -100,14 +100,12 @@ namespace graphics {
 	if (FULLSCREEN_MODE) {
 	  setFullscreenResolution();
 	  m_Window = glfwCreateWindow(m_Width, m_Height, m_Title, glfwGetPrimaryMonitor(), NULL);
-	}
-	else {
+	} else {
 	  m_Window = glfwCreateWindow(m_Width, m_Height, m_Title, NULL, NULL);
 	}
 
 	if (!m_Window) {
 	  utils::Logger::getInstance().error("[WindowInit]", "Could not create the GLFW window");
-	  std::cout << "GLFW Window Couldn't Be Created" << std::endl;
 	  return false;
 	}
 
@@ -140,16 +138,15 @@ namespace graphics {
 	// Enable Depth Testing by default
 	glEnable(GL_DEPTH_TEST);
 
-	// Check to see if v-sync was enabled and act accordingly
+	// Check to see if v-sync was enabled
 	if (V_SYNC) {
 	  glfwSwapInterval(1);
-	}
-	else {
+	} else {
 	  glfwSwapInterval(0);
 	}
 
 
-	// Initialize GLEW (allows us to use newer versions of OpenGL)
+	// Initialize GLEW
 	if (glewInit() != GLEW_OK) {
 	  std::cout << "Could not Initialize GLEW" << std::endl;
 	  utils::Logger::getInstance().error("[WindowInit]", "Could not initialize the GLEW");
@@ -163,8 +160,11 @@ namespace graphics {
 	// Enable the debug callback
 	glEnable(GL_DEBUG_OUTPUT);
 	glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+
+#if DEBUG_OPENGL == 1
 	glDebugMessageCallback(openglCallbackFunction, nullptr);
 	glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, NULL, true);
+#endif
 
 	// Setup ImGui bindings
 	ImGui::CreateContext();
@@ -175,11 +175,6 @@ namespace graphics {
   }
 
   void Window::update() {
-	GLenum error = glGetError();
-	if (error != GL_NO_ERROR) {
-	  std::cout << "OpenGL Error: " << error << std::endl;
-	}
-
 	glfwSwapBuffers(m_Window);
 	s_MouseXDelta = s_MouseYDelta = 0;
 	glfwPollEvents();
@@ -187,7 +182,7 @@ namespace graphics {
 
   void Window::clear() {
 	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
   }
 
   bool Window::closed() const {
@@ -227,7 +222,7 @@ namespace graphics {
   }
 
   void window_resize_callback(GLFWwindow *window, int width, int height) {
-	Window* win = (Window*)glfwGetWindowUserPointer(window);
+	Window* win = static_cast<Window*>(glfwGetWindowUserPointer(window));
 	if (width == 0 || height == 0) {
 	  win->m_Width = WINDOW_X_RESOLUTION;
 	  win->m_Height = WINDOW_Y_RESOLUTION;
@@ -240,11 +235,11 @@ namespace graphics {
 
   // TODO: Finish
   void framebuffer_resize_callback(GLFWwindow *window, int width, int height) {
-	// Window* win = (Window*)glfwGetWindowUserPointer(window);
+	// Window* win = static_cast<Window*>(glfwGetWindowUserPointer(window));
   }
 
   void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods) {
-	Window* win = (Window*)glfwGetWindowUserPointer(window);
+	Window* win = static_cast<Window*>(glfwGetWindowUserPointer(window));
 	win->s_Keys[key] = action != GLFW_RELEASE;
 	ImGui_ImplGlfw_KeyCallback(window, key, scancode, action, mods);
 
@@ -256,7 +251,7 @@ namespace graphics {
   }
 
   void mouse_button_callback(GLFWwindow *window, int button, int action, int mods) {
-	Window* win = (Window*)glfwGetWindowUserPointer(window);
+	Window* win = static_cast<Window*>(glfwGetWindowUserPointer(window));
 	win->s_Buttons[button] = action != GLFW_RELEASE;
 	ImGui_ImplGlfw_MouseButtonCallback(window, button, action, mods);
 
@@ -269,7 +264,7 @@ namespace graphics {
   }
 
   void cursor_position_callback(GLFWwindow* window, double xpos, double ypos) {
-	Window* win = (Window*)glfwGetWindowUserPointer(window);
+	Window* win = static_cast<Window*>(glfwGetWindowUserPointer(window));
 	win->s_MouseXDelta = xpos - win->s_MouseX;
 	win->s_MouseYDelta = ypos - win->s_MouseY;
 	win->s_MouseX = xpos;
@@ -277,7 +272,7 @@ namespace graphics {
   }
 
   void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) {
-	Window* win = (Window*)glfwGetWindowUserPointer(window);
+	Window* win = static_cast<Window*>(glfwGetWindowUserPointer(window));
 	win->s_ScrollX = xoffset;
 	win->s_ScrollY = yoffset;
 	ImGui_ImplGlfw_ScrollCallback(window, xoffset, yoffset);

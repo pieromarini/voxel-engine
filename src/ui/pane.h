@@ -10,6 +10,7 @@ namespace ui {
   class Pane {
 	public:
 	  Pane(std::string paneName, glm::vec2 paneSize);
+	  virtual ~Pane() = default;
 
 	  void render();
 	protected:

@@ -8,10 +8,6 @@ namespace utils {
 
   graphics::Texture* TextureLoader::load2DTexture(std::string path, bool isSRGB, graphics::TextureSettings *settings) {
 	
-	// NOTE: Linux path fix. (remove)
-	// TODO: Abstract into fileUtils.
-	std::replace(path.begin(), path.end(), '\\', '/');
-
 	// Check the texture cache
 	auto iter = m_TextureCache.find(path);
 	if (iter != m_TextureCache.end()) {
@@ -44,6 +40,7 @@ namespace utils {
 	graphics::Texture texture;
 	if (settings != nullptr)
 	  texture.setTextureSettings(*settings);
+
 	texture.generate2DTexture(width, height, textureFormat, dataFormat, data);
 
 	SOIL_free_image_data(data);

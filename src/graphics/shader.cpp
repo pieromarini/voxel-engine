@@ -30,8 +30,8 @@ namespace graphics {
 
 	// NOTE: C-string concat. Move to utils.
 	char *pathVert, *pathFrag;
-	pathVert = (char *) malloc(strlen(m_VertPath) + strlen(SHADER_PATH) + 1);
-	pathFrag = (char *) malloc(strlen(m_FragPath) + strlen(SHADER_PATH) + 1);
+	pathVert = static_cast<char *>(malloc(strlen(m_VertPath) + strlen(SHADER_PATH) + 1));
+	pathFrag = static_cast<char *>(malloc(strlen(m_FragPath) + strlen(SHADER_PATH) + 1));
 	strcpy(pathVert, SHADER_PATH);
 	strcat(pathVert, m_VertPath);
 	strcpy(pathFrag, SHADER_PATH);
@@ -68,14 +68,14 @@ namespace graphics {
 	  glGetShaderiv(fragment, GL_INFO_LOG_LENGTH, &length);
 	  std::vector<char> error(length);
 	  glGetShaderInfoLog(fragment, length, &length, &error[0]);
-	  std::cout << "Failed to Compile Fragment Shader" << std::endl << &error[0] << std::endl;
+	  std::cout << "Failed to Compile Fragment Shader" << '\n' << &error[0] << '\n';
 	  utils::Logger::getInstance().error("[ShaderInit]", "Failed to compile fragment shader " + error[0]);
 	  glDeleteShader(fragment);
 	  return 0;
 	}
 
 	unsigned int geometry;
-	if (m_GeomPath != "") {
+	if (std::strcmp(m_GeomPath, "") != 0) {
 	  geometry = glCreateShader(GL_GEOMETRY_SHADER);
 	  std::string geomSourceString = utils::FileUtils::readFile(m_GeomPath);
 	  const char *geomSource = geomSourceString.c_str();
@@ -83,16 +83,16 @@ namespace graphics {
 	  // Geometry Shader
 	  glShaderSource(geometry, 1, &geomSource, NULL);
 	  glCompileShader(geometry);
-	  int result;
+	  int resultGeo;
 
 	  // Check to see if it was successful
-	  glGetShaderiv(geometry, GL_COMPILE_STATUS, &result);
-	  if (result == GL_FALSE) {
+	  glGetShaderiv(geometry, GL_COMPILE_STATUS, &resultGeo);
+	  if (resultGeo == GL_FALSE) {
 		int length;
 		glGetShaderiv(geometry, GL_INFO_LOG_LENGTH, &length);
 		std::vector<char> error(length);
 		glGetShaderInfoLog(geometry, length, &length, &error[0]);
-		std::cout << "Failed to Compile Geometry Shader" << std::endl << &error[0] << std::endl;
+		std::cout << "Failed to Compile Geometry Shader" << '\n' << &error[0] << '\n';
 		utils::Logger::getInstance().error("[ShaderInit]", "Failed to compile geometry shader " + error[0]);
 		glDeleteShader(geometry);
 		return 0;
@@ -101,14 +101,14 @@ namespace graphics {
 
 	glAttachShader(program, vertex);
 	glAttachShader(program, fragment);
-	if (m_GeomPath != "")
+	if (std::strcmp(m_GeomPath, "") != 0)
 	  glAttachShader(program, geometry);
 	glLinkProgram(program);
 	glValidateProgram(program);
 
 	glDeleteShader(vertex);
 	glDeleteShader(fragment);
-	if (m_GeomPath != "")
+	if (std::strcmp(m_GeomPath, "") != 0)
 	  glDeleteShader(geometry);
 
 	return program;

@@ -2,6 +2,7 @@
 
 #include "camera.h"
 #include "../ui/debugPane.h"
+#include "../math/ray.h"
 
 namespace graphics {
 
@@ -27,12 +28,30 @@ namespace graphics {
 	updateCameraVectors();
   }
 
-  glm::mat4 Camera::getViewMatrix() {
+  void Camera::attachToEntity(const Entity &entity) {
+	m_Entity = &entity;
+  }
+
+  glm::mat4 Camera::getViewMatrix() const {
 	return glm::lookAt(m_Position, m_Position + m_Front, m_Up);
   }
 
-  glm::mat4 Camera::getProjectionMatrix() {
+  glm::mat4 Camera::getProjectionMatrix() const {
 	return glm::perspective(glm::radians(m_FOV), (float)graphics::Window::getWidth() / (float)graphics::Window::getHeight(), 0.1f, 600.0f);
+  }
+
+
+  glm::mat4 Camera::makeModelMatrix(const Entity &entity) const {
+
+	glm::mat4 matrix(1.0f);
+
+	matrix = glm::rotate(matrix, glm::radians(entity.rotation.x), {1, 0, 0});
+	matrix = glm::rotate(matrix, glm::radians(entity.rotation.y), {0, 1, 0});
+	matrix = glm::rotate(matrix, glm::radians(entity.rotation.z), {0, 0, 1});
+
+	matrix = glm::translate(matrix, entity.position);
+
+	return matrix;
   }
 
   void Camera::processInput(float deltaTime) {
@@ -50,14 +69,17 @@ namespace graphics {
 	if (Window::isKeyPressed(GLFW_KEY_LEFT_CONTROL))
 	  processKeyboard(graphics::DOWNWARDS, deltaTime);
 
-	if (Window::isKeyPressed(GLFW_KEY_LEFT_SHIFT))
+	if (Window::isKeyPressed(GLFW_KEY_LEFT_SHIFT)) {
 	  m_MovementSpeed = SPEED * 4.0f;
-	else if(Window::isKeyPressed(GLFW_KEY_LEFT_ALT))
+	} else if(Window::isKeyPressed(GLFW_KEY_LEFT_ALT)) {
 	  m_MovementSpeed = SPEED / 4.0f;
-	else if(Window::isMouseButtonPressed(0)) { // NOTE: Tmp raycasting test
-	  auto ray = graphics::Raycast(Window::getMouseX(), Window::getMouseY(), Window::getWidth(), Window::getHeight(), getProjectionMatrix(), getViewMatrix());
-	} else
+	} else if(Window::isMouseButtonPressed(0)) {
+	  // Left Click
+	} else if (Window::isMouseButtonPressed(1)) {
+	  // Right Click
+	} else {
 	  m_MovementSpeed = SPEED;
+	}
 
 	// Mouse scrolling
 	processMouseScroll(Window::getScrollY() * 6);

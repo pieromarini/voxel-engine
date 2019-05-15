@@ -1,9 +1,9 @@
 #pragma once
 
+#include "../config.h"
 #include "../includes.h"
 #include "../vendor/imgui/imgui.h"
 #include "../vendor/imgui/imgui_impl_glfw_gl3.h"
-#include "interactions/raycast.h"
 
 namespace graphics {
 
