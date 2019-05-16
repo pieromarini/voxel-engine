@@ -3,7 +3,7 @@
 #include <fstream>
 
 // NOTE: Probably create a prettier data format or use JSON or XML and adjust parsing accordingly.
-BlockData::BlockData(const std::string& fileName) {
+BlockData::BlockData(const std::string& fileName) : name(fileName) {
 
   std::ifstream inFile("resources/blocks/" + fileName + ".block");
 

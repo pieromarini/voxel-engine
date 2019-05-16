@@ -13,7 +13,7 @@
 #include "ui/runtimePane.h"
 #include "ui/debugPane.h"
 
-#include "entities/entity.h"
+#include "entities/player/player.h"
 #include "world/world.h"
 #include "renderers/masterRenderer.h"
 
@@ -28,11 +28,10 @@ int main() {
 
   utils::Time deltaTime;
 
-  Entity player{};
-  camera.attachToEntity(player);
-
   World world{};
   MasterRenderer renderer{};
+
+  Player player{&window, &world, &camera};
 
   while(!window.closed()) {
 
@@ -48,6 +47,7 @@ int main() {
 	ImGui_ImplGlfwGL3_NewFrame();
 
 	camera.processInput(deltaTime.getDeltaTime());
+	player.handleInput();
 
     /*
 	renderer.drawCube({0, 0, 0});

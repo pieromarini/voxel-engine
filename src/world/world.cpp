@@ -40,7 +40,7 @@ World::World() {
   }
 }
 
-//world coords into chunk column coords
+// world coords into chunk column coords
 ChunkBlock World::getBlock(int x, int y, int z) const {
   auto bp = getBlockXZ(x, z);
   auto cp = getChunkXZ(x, z);
@@ -72,10 +72,10 @@ void World::editBlock(int x, int y, int z, ChunkBlock block) {
   m_changedChunks.push_back(&m_chunks.at(cp.x * temp_worldSize + cp.z));
 }
 
+// NOTE: Regenerates meshes for changed chunks and renders everything.
 void World::renderWorld(MasterRenderer &renderer) {
-  for (auto &chunk : m_changedChunks) {
+  for (auto &chunk : m_changedChunks)
 	chunk->makeMesh();
-  }
 
   m_changedChunks.clear();
 

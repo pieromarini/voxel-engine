@@ -1,5 +1,5 @@
-#ifndef CHUNKSECTION_H_INCLUDED
-#define CHUNKSECTION_H_INCLUDED
+#ifndef CHUNKSECTION_H
+#define CHUNKSECTION_H
 
 #include <array>
 
@@ -41,4 +41,4 @@ class ChunkSection : public IChunk {
 	bool m_hasMesh = false;
 };
 
-#endif // CHUNKSECTION_H_INCLUDED
+#endif

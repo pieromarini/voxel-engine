@@ -1,4 +1,5 @@
-#pragma once
+#ifndef INCLUDES_H
+#define INCLUDES_H
 
 #include <cmath>
 #include <math.h>
@@ -26,3 +27,5 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "utils/logger.h"
+
+#endif

@@ -14,7 +14,7 @@ void MasterRenderer::drawChunk(const ChunkMesh &mesh) {
   m_chunkRenderer.add(mesh);
 }
 
-void MasterRenderer::finishRender(graphics::Window &window, const graphics::Camera &camera) {
+void MasterRenderer::finishRender(graphics::Window &window, graphics::Camera &camera) {
 
   window.clear();
 

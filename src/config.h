@@ -1,1 +1,1 @@
-#define DEBUG_OPENGL 1
+#define DEBUG_OPENGL 0

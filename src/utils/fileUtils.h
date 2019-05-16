@@ -1,4 +1,5 @@
-#pragma once
+#ifndef FILEUTILS_H
+#define FILEUTILS_H
 
 #include <string>
 
@@ -10,3 +11,5 @@ namespace utils {
   };
 
 } 
+
+#endif

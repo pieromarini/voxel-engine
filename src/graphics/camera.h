@@ -1,8 +1,9 @@
-#pragma once
+#ifndef CAMERA_H
+#define CAMERA_H
 
 #include "../includes.h"
-#include "window.h"
 #include "../entities/entity.h"
+#include "window.h"
 
 namespace graphics {
 
@@ -34,7 +35,7 @@ namespace graphics {
 
 	  void processInput(float deltaTime);
 
-	  void attachToEntity(const Entity &entity);
+	  // void attachToPlayer(Player &player);
 
 	  // Getters
 	  inline float getYaw() const { return m_Yaw; }
@@ -58,7 +59,7 @@ namespace graphics {
 	  float m_FOV;
 
 	  // Hooked entity
-	  const Entity *m_Entity;
+	  // Player *m_Player;
 
 	  void updateCameraVectors();
 	  void processKeyboard(Camera_Movement direction, float deltaTime);
@@ -67,3 +68,5 @@ namespace graphics {
   };
 
 }
+
+#endif

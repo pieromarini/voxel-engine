@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LOGGER_H
+#define LOGGER_H
 
 #include <iostream>
 #include <fstream>
@@ -27,3 +28,5 @@ namespace utils {
   };
 
 }
+
+#endif

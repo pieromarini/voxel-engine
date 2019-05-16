@@ -1,5 +1,5 @@
-#ifndef WORLD_H_INCLUDED
-#define WORLD_H_INCLUDED
+#ifndef WORLD_H
+#define WORLD_H
 
 #include <vector>
 #include "chunk/chunk.h"
@@ -25,4 +25,4 @@ class World : IChunk {
 	std::vector<Chunk*> m_changedChunks;
 };
 
-#endif // WORLD_H_INCLUDED
+#endif

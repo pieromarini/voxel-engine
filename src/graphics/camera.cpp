@@ -28,9 +28,6 @@ namespace graphics {
 	updateCameraVectors();
   }
 
-  void Camera::attachToEntity(const Entity &entity) {
-	m_Entity = &entity;
-  }
 
   glm::mat4 Camera::getViewMatrix() const {
 	return glm::lookAt(m_Position, m_Position + m_Front, m_Up);
@@ -54,6 +51,7 @@ namespace graphics {
 	return matrix;
   }
 
+  // NOTE: Temporary Code. Move Input to dedicated class.
   void Camera::processInput(float deltaTime) {
 	// Keyboard input
 	if (Window::isKeyPressed(GLFW_KEY_W))
@@ -73,10 +71,6 @@ namespace graphics {
 	  m_MovementSpeed = SPEED * 4.0f;
 	} else if(Window::isKeyPressed(GLFW_KEY_LEFT_ALT)) {
 	  m_MovementSpeed = SPEED / 4.0f;
-	} else if(Window::isMouseButtonPressed(0)) {
-	  // Left Click
-	} else if (Window::isMouseButtonPressed(1)) {
-	  // Right Click
 	} else {
 	  m_MovementSpeed = SPEED;
 	}

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef WINDOW_H
+#define WINDOW_H
 
 #include "../config.h"
 #include "../includes.h"
@@ -65,3 +66,5 @@ namespace graphics {
 
 
 }
+
+#endif

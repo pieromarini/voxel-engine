@@ -3,10 +3,12 @@
 
 #include "../entity.h"
 #include "../../graphics/window.h"
+#include "../../world/world.h"
+#include "../../graphics/camera.h"
 
 class Player : public Entity {
   public:
-	Player(graphics::Window *w);
+	Player(graphics::Window *window, World *world, graphics::Camera *camera);
 	void handleInput();
 	void update(float deltaTime);
 
@@ -15,7 +17,9 @@ class Player : public Entity {
 	void mouseInput();
 
 	glm::vec3 velocity;
-	graphics::Window *window;
+	graphics::Camera *m_camera;
+	graphics::Window *m_window;
+	World *m_world;
 
 };
 

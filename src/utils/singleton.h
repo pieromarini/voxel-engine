@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SINGLETON_H
+#define SINGLETON_H
 
 namespace utils {
 
@@ -15,3 +16,5 @@ namespace utils {
   };
 
 }
+
+#endif

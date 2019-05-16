@@ -15,6 +15,7 @@ class BlockData {
 
 	const BlockDataHolder& getBlockData() const;
 
+	std::string name;
   private:
 	BlockDataHolder m_data;
 

@@ -1,5 +1,5 @@
-#ifndef CHUNK_H_INCLUDED
-#define CHUNK_H_INCLUDED
+#ifndef CHUNK_H
+#define CHUNK_H
 
 #include <vector>
 #include "../../renderers/masterRenderer.h"
@@ -34,4 +34,4 @@ class Chunk : public IChunk {
 
 };
 
-#endif // CHUNK_H_INCLUDED
+#endif

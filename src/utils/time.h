@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TIME_H
+#define TIME_H
 
 #include <GLFW/glfw3.h>
 #include <GL/gl.h>
@@ -17,3 +18,5 @@ namespace utils {
   };
 
 }
+
+#endif

@@ -23,7 +23,7 @@ QuadRenderer::QuadRenderer() : m_shader("default_vertex.glsl", "default_fragment
 		0, 1, 2,
 		2, 3, 0
 	  }
-	});
+  });
 }
 
 void QuadRenderer::add(const glm::vec3 &position) {

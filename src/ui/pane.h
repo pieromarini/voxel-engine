@@ -1,4 +1,5 @@
-#pragma once
+#ifndef PANE_H
+#define PANE_H
 
 #include <string>
 #include <glm/glm.hpp>
@@ -21,3 +22,5 @@ namespace ui {
   };
 
 }
+
+#endif

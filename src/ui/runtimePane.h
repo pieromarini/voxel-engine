@@ -1,4 +1,5 @@
-#pragma once
+#ifndef RUNTIMEPANE_H
+#define RUNTIMEPANE_H
 
 #include "pane.h"
 
@@ -12,3 +13,5 @@ namespace ui {
   };
 
 }
+
+#endif

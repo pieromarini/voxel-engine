@@ -17,6 +17,8 @@ void ChunkSection::setBlock(int x, int y, int z, ChunkBlock block) {
 	return;
   }
 
+  // We set the 'dirty bit' so that the mesh is regenerated and set the new block.
+  m_hasMesh = false;
   m_blocks[getIndex(x, y, z)] = block;
 }
 

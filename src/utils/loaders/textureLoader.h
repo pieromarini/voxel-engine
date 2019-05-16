@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TEXTURELOADER_H
+#define TEXTURELOADER_H
 
 #include <map>
 #include "../../graphics/texture/texture.h"
@@ -43,3 +44,5 @@ namespace utils {
   };
 
 }
+
+#endif

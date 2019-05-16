@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CUBEMAP_H
+#define CUBEMAP_H
 
 #include <GL/glew.h>
 
@@ -40,3 +41,5 @@ namespace graphics {
   };
 
 }
+
+#endif

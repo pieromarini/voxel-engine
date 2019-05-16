@@ -1,5 +1,5 @@
-#ifndef CHUNKBLOCK_H_INCLUDED
-#define CHUNKBLOCK_H_INCLUDED
+#ifndef CHUNKBLOCK_H
+#define CHUNKBLOCK_H
 
 #include "blockId.h"
 #include "blockData.h"
@@ -14,8 +14,8 @@ struct ChunkBlock {
   const BlockData& getData() const;
   const BlockType& getType() const;
 
-  bool operator ==(ChunkBlock other) { return id == other.id; }
-  bool operator !=(ChunkBlock other) { return id != other.id; }
+  bool operator==(ChunkBlock other) { return id == other.id; }
+  bool operator!=(ChunkBlock other) { return id != other.id; }
 
   Block_t id = 0;
 };

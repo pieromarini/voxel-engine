@@ -3,6 +3,8 @@
 #include "chunkSection.h"
 #include "chunkMesh.h"
 
+#include "../../ui/debugPane.h"
+
 #include "../block/blockData.h"
 #include "../block/blockDatabase.h"
 
@@ -81,14 +83,17 @@ void ChunkMeshBuilder::buildMesh() {
 
   AdjacentBlockPositions directions;
 
+  int cubeCount = 0;
+
   faces = 0;
-  for (int8_t y = 0; y < CHUNK_SIZE; ++y)
-	for (int8_t x = 0; x < CHUNK_SIZE; ++x)
+  for (int8_t y = 0; y < CHUNK_SIZE; ++y) {
+	for (int8_t x = 0; x < CHUNK_SIZE; ++x) {
 	  for (int8_t z = 0; z < CHUNK_SIZE; ++z) {
 		glm::vec3 position(x, y, z);
 		ChunkBlock block = m_pChunk->getBlock(x, y, z);
 
-		if (block == BlockId::Air) { continue; }
+		if (block == BlockId::Air)
+		  continue;
 
 		m_pBlockData = &block.getData().getBlockData();
 		auto &data = *m_pBlockData;
@@ -96,17 +101,23 @@ void ChunkMeshBuilder::buildMesh() {
 
 
 		//Up/ Down
-		tryAddFaceToMesh(bottomFace,    data.texBottomCoord,    position, directions.down);
-		tryAddFaceToMesh(topFace,       data.texTopCoord,       position, directions.up);
+		tryAddFaceToMesh(bottomFace, data.texBottomCoord, position, directions.down);
+		tryAddFaceToMesh(topFace, data.texTopCoord, position, directions.up);
 
 		//Left/ Right
-		tryAddFaceToMesh(leftFace,      data.texSideCoord,      position, directions.left);
-		tryAddFaceToMesh(rightFace,     data.texSideCoord,      position, directions.right);
+		tryAddFaceToMesh(leftFace, data.texSideCoord, position, directions.left);
+		tryAddFaceToMesh(rightFace, data.texSideCoord, position, directions.right);
 
 		//Front/ Back
-		tryAddFaceToMesh(frontFace,     data.texSideCoord,      position, directions.front);
-		tryAddFaceToMesh(backFace,      data.texSideCoord,      position, directions.back);
+		tryAddFaceToMesh(frontFace, data.texSideCoord, position, directions.front);
+		tryAddFaceToMesh(backFace, data.texSideCoord, position, directions.back);
+
+		cubeCount++;
 	  }
+	}
+  }
+
+  ui::DebugPane::addGeometryStats(cubeCount, faces);
 }
 
 void ChunkMeshBuilder::tryAddFaceToMesh(const std::vector<float> &blockFace, const glm::vec2 &textureCoords, const glm::vec3 &blockPosition, const glm::vec3 &blockFacing) {
@@ -124,7 +135,11 @@ bool ChunkMeshBuilder::shouldMakeFace(const glm::vec3 &adjBlock, const BlockData
 
   auto block = m_pChunk->getBlock(adjBlock.x, adjBlock.y, adjBlock.z);
 
-  return block == BlockId::Air;
+  if (block == BlockId::Air) {
+	return true;
+  } else {
+	return false;
+  }
 
   ///TODO: Transparent Blocks
 }

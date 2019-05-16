@@ -9,7 +9,7 @@ class Ray {
 
 	void step(float scale);
 
-	const glm::vec3 &getEnd() const;
+	const glm::vec3& getEnd() const;
 
 	float getLength() const;
 

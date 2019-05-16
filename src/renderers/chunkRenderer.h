@@ -1,5 +1,5 @@
-#ifndef CHUNKRENDERER_H_INCLUDED
-#define CHUNKRENDERER_H_INCLUDED
+#ifndef CHUNKRENDERER_H
+#define CHUNKRENDERER_H
 
 #include <vector>
 
@@ -21,4 +21,4 @@ class ChunkRenderer {
 
 };
 
-#endif // CHUNKRENDERER_H_INCLUDED
+#endif
