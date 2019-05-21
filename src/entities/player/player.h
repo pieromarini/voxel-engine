@@ -5,6 +5,7 @@
 #include "../../graphics/window.h"
 #include "../../world/world.h"
 #include "../../graphics/camera.h"
+#include "../../utils/timer.h"
 
 class Player : public Entity {
   public:
@@ -20,6 +21,9 @@ class Player : public Entity {
 	graphics::Camera *m_camera;
 	graphics::Window *m_window;
 	World *m_world;
+
+	bool m_canDig = true;
+	utils::Timer timer;
 
 };
 

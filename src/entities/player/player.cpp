@@ -4,7 +4,7 @@
 Player::Player(graphics::Window *window, World *world, graphics::Camera *camera) 
   : m_window(window), m_world(world), m_camera(camera) {
 
-  position = glm::vec3(0.0f, 70.0f, 0.0f);
+  position = m_camera->getPosition();
   rotation = m_camera->getFront();
 }
 
@@ -14,29 +14,49 @@ void Player::handleInput() {
   position = m_camera->getPosition();
   rotation = m_camera->getFront();
 
-  glm::vec3 lastPosition;
 
-  if (graphics::Window::isMouseButtonPressed(0)) {
+  // Can't spam click
+  if (timer.getTime() > 2.0f) {
+	m_canDig = true;
+  }
 
-	// TODO: Fix raycasting direction. Right now its being shot directly down?
-	for (Ray ray(position, rotation); ray.getLength() < 6; ray.step(0.1)) {
+  if (m_window->isMouseButtonPressed(0) && m_canDig) {
+
+	for (Ray ray(position, m_camera->getYaw(), m_camera->getPitch()); ray.getLength() < 6; ray.step(0.05)) {
 	  int x = ray.getEnd().x;
 	  int y = ray.getEnd().y;
 	  int z = ray.getEnd().z;
 
+	  std::cout << x << ' ' << y << ' ' << z << '\n';
+
 	  auto block = m_world->getBlock(x, y, z);
 
-	  if(block != BlockId::Air) { // Not BlockId::Air
+	  if(block != BlockId::Air) {
 		m_world->editBlock(x, y, z, 0);
+		timer.reset();
+		m_canDig = false;
 		break;
 	  }
+	}
+  } else if (m_window->isMouseButtonPressed(1)) {
+
+	glm::vec3 lastPosition {0.0f, 0.0f, 0.0f};
+
+	for (Ray ray(position, m_camera->getYaw(), m_camera->getPitch()); ray.getLength() < 6; ray.step(0.05)) {
+	  int x = ray.getEnd().x;
+	  int y = ray.getEnd().y;
+	  int z = ray.getEnd().z;
+
+	  std::cout << x << ' ' << y << ' ' << z << '\n';
+	  auto block = m_world->getBlock(x, y, z);
+
+	  if (block != BlockId::Air) {
+		m_world->editBlock(lastPosition.x, lastPosition.y, lastPosition.z, 1);
+		break;
+	  }
+
 	  lastPosition = ray.getEnd();
 	}
-  /*
-  } else if (graphics::Window::isMouseButtonPressed(1)) {
-	m_world->editBlock(lastPosition.x, lastPosition.y, lastPosition.z, 1);
-	break;
-  */
   }
 
   keyboardInput();

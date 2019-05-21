@@ -7,12 +7,13 @@
 namespace utils {
 
   class Timer {
-	private:
-	  double startTime;
 	public:
 	  Timer();
 	  void reset();
 	  void logTimer(std::string prefix = "");
+	  double getTime();
+	private:
+	  double startTime;
   };
 
 } 

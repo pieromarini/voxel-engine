@@ -11,6 +11,10 @@ namespace utils {
 	startTime = glfwGetTime();
   }
 
+  double Timer::getTime() {
+	return glfwGetTime() - startTime;
+  }
+
   void Timer::logTimer(std::string prefix) {
 	Logger::getInstance().info("[Timer]", prefix + std::to_string(glfwGetTime() - startTime) + "s");
   }

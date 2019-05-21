@@ -1,14 +1,11 @@
 #include "ray.h"
 
-Ray::Ray(const glm::vec3 &position, const glm::vec3 &direction) : m_rayStart(position), m_rayEnd(position), m_direction(direction) { }
+Ray::Ray(const glm::vec3 &position, const float &yaw, const float &pitch) : m_rayStart(position), m_rayEnd(position), m_yaw(yaw), m_pitch(pitch) { }
 
 void Ray::step(float scale) {
-  float yaw = glm::radians(m_direction.y + 90);
-  float pitch = glm::radians(m_direction.x);
-
-  m_rayEnd.x -= glm::cos(yaw) * scale;
-  m_rayEnd.y -= glm::sin(yaw) * scale;
-  m_rayEnd.z -= glm::tan(pitch) * scale;
+  m_rayEnd.x += cos(glm::radians(m_yaw)) * scale;
+  m_rayEnd.z += sin(glm::radians(m_yaw)) * scale;
+  m_rayEnd.y += tan(glm::radians(m_pitch)) * scale;
 }
 
 const glm::vec3& Ray::getEnd() const {

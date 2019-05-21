@@ -5,7 +5,7 @@
 
 class Ray {
   public:
-	Ray(const glm::vec3 &position, const glm::vec3 &direction);
+	Ray(const glm::vec3 &position, const float &yaw, const float &pitch);
 
 	void step(float scale);
 
@@ -16,7 +16,7 @@ class Ray {
   private:
 	glm::vec3 m_rayStart;
 	glm::vec3 m_rayEnd;
-	glm::vec3 m_direction;
+	float m_yaw, m_pitch;
 };
 
 #endif
