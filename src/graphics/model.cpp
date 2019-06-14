@@ -14,10 +14,10 @@ namespace graphics {
   Model::Model(Model &&other) : m_vao(other.m_vao), m_vboCount(other.m_vboCount), 
 	m_indicesCount(other.m_indicesCount), m_buffers(std::move(other.m_buffers)) {
 
-	  other.m_vao             = 0;
-	  other.m_vboCount        = 0;
-	  other.m_indicesCount    = 0;
-	}
+	other.m_vao = 0;
+	other.m_vboCount = 0;
+	other.m_indicesCount = 0;
+  }
 
   Model& Model::operator=(Model&& other) {
 	m_vao = other.m_vao;
