@@ -62,7 +62,7 @@ namespace graphics {
 	m_HideCursor = true;
 
 	if (!init()) {
-	  utils::Logger::getInstance().error("[WindowInit]", "Could not initialize window class");
+	  logger::log<logger::Error>("[WindowInit] Couldn't initialize window class");
 	  glfwDestroyWindow(m_Window);
 	  glfwTerminate();
 	}
@@ -83,7 +83,7 @@ namespace graphics {
 
 	if (!glfwInit()) {
 	  std::cout << "GLFW Failed To Initialize" << std::endl;
-	  utils::Logger::getInstance().error("[WindowInit]", "Could not initialize the GLFW window");
+	  logger::log<logger::Error>("[WindowInit] Couldn't initialize GLFW window");
 	  return false;
 	}
 
@@ -105,7 +105,7 @@ namespace graphics {
 	}
 
 	if (!m_Window) {
-	  utils::Logger::getInstance().error("[WindowInit]", "Could not create the GLFW window");
+	  logger::log<logger::Error>("[WindowInit] Couldn't create GLFW window");
 	  return false;
 	}
 
@@ -149,7 +149,7 @@ namespace graphics {
 	// Initialize GLEW
 	if (glewInit() != GLEW_OK) {
 	  std::cout << "Could not Initialize GLEW" << std::endl;
-	  utils::Logger::getInstance().error("[WindowInit]", "Could not initialize the GLEW");
+	  logger::log<logger::Error>("[WindowInit] Couldn't initialize GLEW");
 	  return 0;
 	}
 	std::cout << "OpenGL " << glGetString(GL_VERSION) << std::endl;
@@ -199,7 +199,7 @@ namespace graphics {
   /*                   Static Functions                    */
   bool Window::isKeyPressed(unsigned int keycode) {
 	if (keycode >= MAX_KEYS) {
-	  utils::Logger::getInstance().error("[InputCheck]", "Key checked is out of bounds (ie not supported)");
+	  logger::log<logger::Error>("[InputCheck] Key checked is out of bounds (not supported)");
 	  return false;
 	}
 	else {
@@ -209,7 +209,7 @@ namespace graphics {
 
   bool Window::isMouseButtonPressed(unsigned int code) {
 	if (code >= MAX_BUTTONS) {
-	  utils::Logger::getInstance().error("[InputCheck]", "Key checked is out of bounds (ie not supported)");
+	  logger::log<logger::Error>("[InputCheck] Button checked is out of bounds (not supported)");
 	  return false;
 	}
 	else {

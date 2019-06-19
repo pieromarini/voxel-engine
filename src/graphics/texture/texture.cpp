@@ -98,7 +98,7 @@ namespace graphics {
   void Texture::setTextureMagFilter(GLenum textureFilterMode, bool shouldBind) {
 	// If mag filter mode exceeds GL_Linear (bilinear) report an error because it is useless to perform more expensive filtering with magnification
 	if (textureFilterMode > GL_LINEAR)
-	  utils::Logger::getInstance().warning("[TextureFilters]", "Texture's magnification filter exceeded bilinear filtering (Expensive and won't improve quality).");
+	  logger::log<logger::Warning>("[TextureFilters]", "Texture's magnification filter exceeded bilinear filtering (Expensive and won't improve quality).");
 
 	if (m_TextureSettings.TextureMagnificationFilterMode == textureFilterMode)
 	  return;

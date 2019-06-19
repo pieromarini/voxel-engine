@@ -16,7 +16,7 @@ namespace utils {
   }
 
   void Timer::logTimer(std::string prefix) {
-	Logger::getInstance().info("[Timer]", prefix + std::to_string(glfwGetTime() - startTime) + "s");
+	logger::log<logger::Debug>("[Timer]", prefix, glfwGetTime() - startTime, "s");
   }
 
 };

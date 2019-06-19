@@ -54,7 +54,10 @@ namespace graphics {
 	  glGetShaderiv(vertex, GL_INFO_LOG_LENGTH, &length);
 	  std::vector<char> error(length);
 	  glGetShaderInfoLog(vertex, length, &length, &error[0]);
-	  utils::Logger::getInstance().error("[ShaderInit]", "Failed to compile vertex shader " + error[0]);
+
+	  std::string errorStr {error.begin(), error.end()};
+	  logger::log<logger::Error>("[ShaderInit]", "Failed to compile vertex shader ", m_VertPath, errorStr);
+
 	  glDeleteShader(vertex);
 	  return 0;
 	}
@@ -68,8 +71,10 @@ namespace graphics {
 	  glGetShaderiv(fragment, GL_INFO_LOG_LENGTH, &length);
 	  std::vector<char> error(length);
 	  glGetShaderInfoLog(fragment, length, &length, &error[0]);
-	  std::cout << "Failed to Compile Fragment Shader" << '\n' << &error[0] << '\n';
-	  utils::Logger::getInstance().error("[ShaderInit]", "Failed to compile fragment shader " + error[0]);
+
+	  std::string errorStr {error.begin(), error.end()};
+	  logger::log<logger::Error>("[ShaderInit]", "Failed to compile fragment shader", m_FragPath, errorStr);
+
 	  glDeleteShader(fragment);
 	  return 0;
 	}
@@ -92,8 +97,10 @@ namespace graphics {
 		glGetShaderiv(geometry, GL_INFO_LOG_LENGTH, &length);
 		std::vector<char> error(length);
 		glGetShaderInfoLog(geometry, length, &length, &error[0]);
-		std::cout << "Failed to Compile Geometry Shader" << '\n' << &error[0] << '\n';
-		utils::Logger::getInstance().error("[ShaderInit]", "Failed to compile geometry shader " + error[0]);
+
+		std::string errorStr {error.begin(), error.end()};
+		logger::log<logger::Error>("[ShaderInit]", "Failed to compile geometry shader", m_GeomPath, errorStr);
+
 		glDeleteShader(geometry);
 		return 0;
 	  }

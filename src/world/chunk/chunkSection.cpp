@@ -41,9 +41,9 @@ bool ChunkSection::hasMesh() const noexcept {
 
 glm::vec3 ChunkSection::toWorldPosition(int x, int y, int z) const {
   return {
-	m_location.x * CHUNK_SIZE + x,
-	m_location.y * CHUNK_SIZE + y,
-	m_location.z * CHUNK_SIZE + z
+	m_location.x * CHUNK_SIZE + static_cast<float>(x),
+	m_location.y * CHUNK_SIZE + static_cast<float>(y),
+	m_location.z * CHUNK_SIZE + static_cast<float>(z)
   };
 }
 

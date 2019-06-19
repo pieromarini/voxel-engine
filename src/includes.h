@@ -2,7 +2,6 @@
 #define INCLUDES_H
 
 #include <cmath>
-#include <math.h>
 #include <iostream>
 #include <fstream>
 #include <vector>

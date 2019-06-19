@@ -18,7 +18,7 @@ namespace utils {
 	int width, height, numComponents;
 	unsigned char *data = SOIL_load_image(path.c_str(), &width, &height, &numComponents, 0);
 	if (!data) {
-	  utils::Logger::getInstance().error("[TextureLoader] Couldn't load texture: ", path);
+	  logger::log<logger::Error>("[TextureLoader] Couldn't load texture:", path);
 	  SOIL_free_image_data(data);
 	  return nullptr;
 	}
@@ -80,7 +80,7 @@ namespace utils {
 		SOIL_free_image_data(data);
 	  }
 	  else {
-		utils::Logger::getInstance().error("[CubemapLoader] Couldn't load cubemap from ", faces[i]);
+		logger::log<logger::Error>("[CubemapLoader] Couldn't load cubemap from:", faces[i]);
 		SOIL_free_image_data(data);
 		return cubemap;
 	  }

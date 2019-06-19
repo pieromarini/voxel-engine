@@ -1,5 +1,6 @@
 #include "player.h"
 #include "../../math/ray.h"
+#include "../../utils/logger.h"
 
 Player::Player(graphics::Window *window, World *world, graphics::Camera *camera) 
   : m_window(window), m_world(world), m_camera(camera) {
@@ -27,11 +28,11 @@ void Player::handleInput() {
 	  int y = ray.getEnd().y;
 	  int z = ray.getEnd().z;
 
-	  std::cout << x << ' ' << y << ' ' << z << '\n';
 
 	  auto block = m_world->getBlock(x, y, z);
 
 	  if(block != BlockId::Air) {
+		logger::log<logger::Info>("[Player]", ray);
 		m_world->editBlock(x, y, z, 0);
 		timer.reset();
 		m_canDig = false;
@@ -47,7 +48,6 @@ void Player::handleInput() {
 	  int y = ray.getEnd().y;
 	  int z = ray.getEnd().z;
 
-	  std::cout << x << ' ' << y << ' ' << z << '\n';
 	  auto block = m_world->getBlock(x, y, z);
 
 	  if (block != BlockId::Air) {

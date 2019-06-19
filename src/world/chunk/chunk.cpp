@@ -11,8 +11,8 @@ Chunk::Chunk(World &world, const glm::vec2 &location) : m_location(location), m_
 	m_chunks.emplace_back(glm::vec3(location.x, y, location.y), world);
   }
 
-  int h =  m_chunks.size() * CHUNK_SIZE - 1;
-  for (int y = 0; y < (int)m_chunks.size() * CHUNK_SIZE; y++)
+  int h =  static_cast<int>(m_chunks.size()) * CHUNK_SIZE - 1;
+  for (int y = 0; y < static_cast<int>(m_chunks.size()) * CHUNK_SIZE; y++)
 	for (int x = 0; x < 16; x++)
 	  for (int z = 0; z < 16; z++) {
 		if (y == h) {
@@ -63,7 +63,7 @@ bool Chunk::outOfBound(int x, int y, int z) const {
   if (y < 0) return true;
   if (z < 0) return true;
 
-  if (y >= (int)m_chunks.size() * CHUNK_SIZE) {
+  if (y >= static_cast<int>(m_chunks.size()) * CHUNK_SIZE) {
 	return true;
   }
 
